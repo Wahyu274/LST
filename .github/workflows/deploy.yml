@@ -1,0 +1,31 @@
+name: Auto Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Auto Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 145.223.108.224
+          username: u660474867
+          password: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
+          port: 65002
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 20
+            cd domains/listech.id/public_html
+            git pull origin main
+            npm install
+            npx prisma generate
+            npm run build
+            
+            # Restart Hostinger Node.js App (Passenger)
+            mkdir -p tmp
+            touch tmp/restart.txt

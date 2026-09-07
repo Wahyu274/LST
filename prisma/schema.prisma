@@ -1,0 +1,435 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  name         String
+  passwordHash String
+  role         String      @default("CUSTOMER_SERVICE") // SUPER_ADMIN, SALES, CUSTOMER_SERVICE, CONTENT_EDITOR
+  status       String      @default("ACTIVE") // ACTIVE, DISABLED
+  avatarUrl    String?
+  mfaEnabled   Boolean     @default(false)
+  isOnline     Boolean     @default(false)
+  deletedAt    DateTime?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  assignedConversations ConversationAssignment[]
+  createdLeads          Lead[]                   @relation("LeadOwner")
+  managedProjects       Project[]                @relation("ProjectPIC")
+  auditLogs             AuditLog[]
+}
+
+model Customer {
+  id          String    @id @default(uuid())
+  name        String
+  institution String?
+  email       String?
+  phone       String
+  location    String?
+  notes       String?
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  leads         Lead[]
+  conversations Conversation[]
+}
+
+model Lead {
+  id             String    @id @default(uuid())
+  customerId     String
+  customer       Customer  @relation(fields: [customerId], references: [id])
+  ownerId        String?
+  owner          User?     @relation("LeadOwner", fields: [ownerId], references: [id])
+  source         String    @default("AI_CHAT") // AI_CHAT, CONTACT_FORM, WHATSAPP, MANUAL
+  interest       String
+  stage          String    @default("NEW") // NEW, CONTACTED, QUALIFIED, QUOTATION, NEGOTIATION, WON, LOST
+  estimatedValue Float?
+  notes          String?
+  nextFollowUp   DateTime?
+  deletedAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  activities LeadActivity[]
+  notesList  LeadNote[]
+  quotations Quotation[]
+  project    Project?
+
+  @@index([customerId])
+  @@index([ownerId])
+}
+
+model LeadActivity {
+  id        String   @id @default(uuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type      String   // STAGE_CHANGE, NOTE_ADDED, CALL, MEETING, EMAIL
+  title     String
+  details   String?
+  actorName String   @default("System")
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+}
+
+model LeadNote {
+  id        String   @id @default(uuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  author    String
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+}
+
+model Conversation {
+  id            String    @id @default(uuid())
+  customerId    String?
+  customer      Customer? @relation(fields: [customerId], references: [id])
+  visitorId     String
+  status        String    @default("AI_HANDLING") // AI_HANDLING, WAITING_FOR_CS, ASSIGNED, HUMAN_HANDLING, FOLLOW_UP, CLOSED
+  summary       String?
+  intentCategory String?
+  channel       String    @default("WEB_CHAT")
+  unreadCS      Boolean   @default(false)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  messages    Message[]
+  assignments ConversationAssignment[]
+
+  @@index([customerId])
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderType     String       // VISITOR, AI, CS, SYSTEM
+  senderName     String
+  content        String
+  isInternalNote Boolean      @default(false)
+  attachmentUrl  String?
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId])
+}
+
+model ConversationAssignment {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  assignedAt     DateTime     @default(now())
+  releasedAt     DateTime?
+
+  @@index([conversationId])
+  @@index([userId])
+}
+
+model ProductCategory {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  status      String    @default("PUBLISHED") // PUBLISHED, ARCHIVED
+  sortOrder   Int       @default(0)
+  deletedAt   DateTime?
+  products    Product[]
+}
+
+model Product {
+  id              String          @id @default(uuid())
+  categoryId      String
+  category        ProductCategory @relation(fields: [categoryId], references: [id])
+  name            String
+  slug            String          @unique
+  sku             String?
+  brand           String
+  shortDescription String?
+  specifications  String          // JSON or structured text
+  description     String
+  price           Float?
+  showPrice       Boolean         @default(false)
+  availability    String          @default("IN_STOCK") // IN_STOCK, BY_REQUEST, PROJECT_BASED
+  status          String          @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  imageUrl        String?
+  isFeatured      Boolean         @default(false)
+  deletedAt       DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  quotationItems QuotationItem[]
+  saleItems      SaleItem[]
+
+  @@index([categoryId])
+}
+
+model ServiceSolution {
+  id          String    @id @default(uuid())
+  title       String
+  slug        String    @unique
+  iconName    String
+  tagline     String
+  problemText String
+  scopeText   String
+  processText String
+  imageUrl    String?
+  status      String    @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  isFeatured  Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Quotation {
+  id          String    @id @default(uuid())
+  leadId      String?
+  lead        Lead?     @relation(fields: [leadId], references: [id])
+  code        String    @unique
+  clientName  String
+  totalAmount Float
+  status      String    @default("DRAFT") // DRAFT, REVIEW, SENT, NEGOTIATION, APPROVED, REJECTED, EXPIRED
+  validUntil  DateTime
+  notes       String?
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  items QuotationItem[]
+
+  @@index([leadId])
+}
+
+model QuotationItem {
+  id          String    @id @default(uuid())
+  quotationId String
+  quotation   Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product?  @relation(fields: [productId], references: [id])
+  itemTitle   String
+  quantity    Int
+  unitPrice   Float
+  totalPrice  Float
+
+  @@index([quotationId])
+  @@index([productId])
+}
+
+model SaleTransaction {
+  id            String    @id @default(uuid())
+  code          String    @unique
+  clientName    String
+  category      String    @default("IT Equipment")
+  totalRevenue  Float
+  paymentStatus String    @default("UNPAID") // UNPAID, PARTIAL, PAID, OVERDUE
+  status        String    @default("COMPLETED")
+  saleDate      DateTime  @default(now())
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  items SaleItem[]
+}
+
+model SaleItem {
+  id            String          @id @default(uuid())
+  transactionId String
+  transaction   SaleTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  productId     String?
+  product       Product?        @relation(fields: [productId], references: [id])
+  productName   String
+  quantity      Int
+  price         Float
+
+  @@index([transactionId])
+  @@index([productId])
+}
+
+model Project {
+  id            String    @id @default(uuid())
+  leadId        String?   @unique
+  lead          Lead?     @relation(fields: [leadId], references: [id])
+  title         String
+  clientName    String
+  sector        String    // Education, Corporate, Government, Foundation
+  location      String
+  value         Float
+  picId         String?
+  pic           User?     @relation("ProjectPIC", fields: [picId], references: [id])
+  progress      Int       @default(0) // 0 - 100
+  paymentStatus String    @default("UNPAID") // UNPAID, PARTIAL, PAID
+  startDate     DateTime
+  endDate       DateTime?
+  status        String    @default("PLANNING") // PLANNING, PROCUREMENT, INSTALLATION, TESTING, COMPLETED, ON_HOLD, CANCELLED
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  updates          ProjectUpdate[]
+  portfolioProject PortfolioProject?
+
+  @@index([picId])
+}
+
+model ProjectUpdate {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  note      String
+  progress  Int
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
+}
+
+model PortfolioProject {
+  id             String    @id @default(uuid())
+  projectId      String?   @unique
+  project        Project?  @relation(fields: [projectId], references: [id])
+  title          String
+  slug           String    @unique
+  sector         String
+  location       String
+  solutionType   String
+  challengeText  String
+  scopeText      String
+  resultText     String
+  coverImageUrl  String
+  isPublished    Boolean   @default(true)
+  status         String    @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  deletedAt      DateTime?
+  publishedAt    DateTime  @default(now())
+
+  media PortfolioMedia[]
+}
+
+model PortfolioMedia {
+  id                 String           @id @default(uuid())
+  portfolioProjectId String
+  portfolioProject   PortfolioProject @relation(fields: [portfolioProjectId], references: [id], onDelete: Cascade)
+  mediaUrl           String
+  caption            String?
+
+  @@index([portfolioProjectId])
+}
+
+model FAQCategory {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  sortOrder Int      @default(0)
+  faqs      FAQ[]
+}
+
+model FAQ {
+  id          String      @id @default(uuid())
+  categoryId  String
+  category    FAQCategory @relation(fields: [categoryId], references: [id])
+  question    String
+  answer      String
+  isPublished Boolean     @default(true)
+  status      String      @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  syncToAI    Boolean     @default(true)
+  sortOrder   Int         @default(0)
+  deletedAt   DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([categoryId])
+}
+
+model Article {
+  id          String    @id @default(uuid())
+  title       String
+  slug        String    @unique
+  category    String
+  excerpt     String
+  content     String
+  coverUrl    String
+  authorName  String    @default("LST Editorial Team")
+  isPublished Boolean   @default(true)
+  status      String    @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model PageContent {
+  id          String   @id @default(uuid())
+  pageKey     String   @unique // home_hero, about_overview, etc.
+  title       String
+  contentJson String   // JSON format for page variables
+  updatedAt   DateTime @updatedAt
+}
+
+model AIKnowledgeSource {
+  id          String    @id @default(uuid())
+  title       String
+  type        String    // FAQ_SYNC, DOCUMENT, POLICY, PRODUCT_INFO
+  content     String
+  category    String?
+  priority    Int       @default(1)
+  isApproved  Boolean   @default(true)
+  status      String    @default("ACTIVE")
+  deletedAt   DateTime?
+  lastSyncAt  DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+}
+
+model AIConversationMetric {
+  id             String   @id @default(uuid())
+  conversationId String   @unique
+  totalMessages  Int
+  resolvedByAI   Boolean  @default(true)
+  escalatedToCS  Boolean  @default(false)
+  intent         String?
+  latencyMs      Int      @default(0)
+  createdAt      DateTime @default(now())
+}
+
+model WebsiteEvent {
+  id         String   @id @default(uuid())
+  eventType  String   // PAGE_VIEW, CTA_CLICK, AI_START, CS_REQUEST, WA_CLICK, QUOTE_REQ
+  path       String
+  visitorId  String
+  metaJson   String?
+  createdAt  DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  resource  String
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model PartnerLogo {
+  id        String    @id @default(uuid())
+  name      String
+  logoUrl   String
+  category  String?   @default("PARTNER") // PARTNER, CLIENT, INSTITUTION
+  sortOrder Int       @default(0)
+  status    String    @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
