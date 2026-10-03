@@ -59,7 +59,7 @@ function parseSpecifications(specsInput: string | null | undefined): SpecItem[] 
 export default async function ProductDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<React.ReactNode> {
   const { slug } = await params;
   const product = await prisma.product.findUnique({

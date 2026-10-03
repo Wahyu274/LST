@@ -112,7 +112,7 @@ const FALLBACK_SOLUTIONS_MAP: Record<string, any> = {
 export default async function SolutionDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<React.ReactNode> {
   const { slug } = await params;
   let solution: any = null;

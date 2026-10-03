@@ -12,7 +12,7 @@ export const revalidate = 0;
 export default async function InsightDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<React.ReactNode> {
   const { slug } = await params;
   const article = await prisma.article.findUnique({
