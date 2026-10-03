@@ -112,12 +112,13 @@ const FALLBACK_SOLUTIONS_MAP: Record<string, any> = {
 export default async function SolutionDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }> | { slug: string };
 }): Promise<React.ReactNode> {
+  const { slug } = await params;
   let solution: any = null;
   try {
     solution = await prisma.serviceSolution.findUnique({
-      where: { slug: params.slug },
+      where: { slug },
     });
   } catch (e) {
     console.error('Error fetching solution by slug:', e);
@@ -125,7 +126,7 @@ export default async function SolutionDetailPage({
 
   if (!solution) {
     const fallbackKey = Object.keys(FALLBACK_SOLUTIONS_MAP).find(
-      (key) => params.slug.includes(key) || key.includes(params.slug)
+      (key) => slug.includes(key) || key.includes(slug)
     ) || 'smart-classroom';
     solution = FALLBACK_SOLUTIONS_MAP[fallbackKey] || FALLBACK_SOLUTIONS_MAP['smart-classroom'];
   }

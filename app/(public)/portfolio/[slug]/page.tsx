@@ -11,10 +11,11 @@ export const revalidate = 0;
 export default async function PortfolioDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }> | { slug: string };
 }): Promise<React.ReactNode> {
+  const { slug } = await params;
   const project = await prisma.portfolioProject.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
 
   if (!project) {
