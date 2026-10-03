@@ -143,7 +143,7 @@ export default async function SolutionDetailPage({
     },
   });
 
-  const categoryIds = categories.map((c) => c.id);
+  const categoryIds = categories.map((c: any) => c.id);
 
   let relatedProducts = await prisma.product.findMany({
     where: {
@@ -163,7 +163,7 @@ export default async function SolutionDetailPage({
     const additional = await prisma.product.findMany({
       where: {
         deletedAt: null,
-        id: { notIn: relatedProducts.map((p) => p.id) },
+        id: { notIn: relatedProducts.map((p: any) => p.id) },
       },
       take: 4 - relatedProducts.length,
       include: { category: true },
