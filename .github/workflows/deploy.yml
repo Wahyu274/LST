@@ -28,6 +28,12 @@ jobs:
               cd public_html
             fi
             git pull origin main
+            
+            # Bersihkan duplikat CSP dari .htaccess jika ada agar dikontrol tunggal oleh next.config.js
+            if [ -f ".htaccess" ]; then
+              sed -i '/Content-Security-Policy/d' .htaccess
+            fi
+            
             npm install
             npx prisma generate
             npm run build
