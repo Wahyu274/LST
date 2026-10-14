@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const forwardedFor = req.headers.get('x-forwarded-for');
     const realIp = req.headers.get('x-real-ip');
     
-    let visitorId = req.ip || 
+    let visitorId = (req as any).ip || 
                     (forwardedFor ? forwardedFor.split(',')[0].trim() : null) || 
                     realIp || 
                     'unknown-ip';

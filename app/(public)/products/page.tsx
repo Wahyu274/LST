@@ -59,11 +59,10 @@ const FALLBACK_PRODUCTS = [
   },
 ];
 
-export default async function ProductsListingPage({
-  searchParams,
-}: {
-  searchParams?: { category?: string; search?: string };
+export default async function ProductsListingPage(props: {
+  searchParams?: Promise<{ category?: string; search?: string }>;
 }): Promise<React.ReactNode> {
+  const searchParams = await props.searchParams;
   let categories: any[] = [];
   let products: any[] = [];
 
