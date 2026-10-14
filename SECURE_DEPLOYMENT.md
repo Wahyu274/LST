@@ -130,6 +130,17 @@ Gunakan checklist ini sebagai standar sebelum & sesudah deployment:
 - [x] Sertifikat SSL/TLS aktif pada domain Hostinger.
 - [x] Flag `Secure: true` pada cookie HTTPOnly aktif otomatis saat HTTPS.
 - [x] HTTP Security Headers (`Content-Security-Policy`, `X-Frame-Options: DENY`, `nosniff`, `HSTS`) diverifikasi via `curl -I https://domain-anda.com`.
+- [x] `poweredByHeader: false` diaktifkan di `next.config.js` untuk menyembunyikan header `X-Powered-By: Next.js`.
+- [x] CSP diperketat: `script-src 'self'` (tanpa `unsafe-inline` / `unsafe-eval`), `img-src` hanya `https:`/`blob:`/`data:` (tanpa `http:`).
+- [x] Form data sensitif (`/contact` & `/login`) menggunakan `method="POST"` untuk mencegah kebocoran data pribadi (PII) ke query URL/log akses.
+- [x] Berkas `robots.txt` dan `sitemap.xml` tersedia untuk kontrol crawler dan optimasi SEO.
+
+### 5. Resolusi Header CSP Ganda (Comma sebelum upgrade-insecure-requests)
+Jika pengujian keamanan mendeteksi tanda koma sebelum `upgrade-insecure-requests` pada header `Content-Security-Policy`:
+- **Penyebab**: Header CSP dikirim oleh dua layer berbeda — Next.js (`next.config.js`) dan Reverse Proxy / CDN Hostinger (hPanel / Cloudflare / `.htaccess`). Berdasarkan spesifikasi HTTP (RFC 7230), proxy menggabungkan dua header bernama sama dengan tanda koma (`,`).
+- **Solusi**:
+  1. Di `next.config.js`, direktif `upgrade-insecure-requests;` telah disertakan secara resmi dalam satu string CSP.
+  2. Di **Hostinger hPanel**: Buka menu **Security** / **SSL** / **CDN**, jika opsi *Automatic HTTPS Rewrites* atau *Security Headers* aktif dan menambahkan CSP `upgrade-insecure-requests`, nonaktifkan injeksi header CSP di level hPanel/CDN agar CSP dikelola secara tunggal & sentral oleh aplikasi Next.js.
 
 ### 4. Build & Compilation Verification
 - [x] Jalankan `npx tsc --noEmit` -> Must Exit Code 0.

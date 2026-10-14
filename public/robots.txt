@@ -1,0 +1,20 @@
+# Robots.txt for CV Life Solution Technology (listech.id)
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /faq
+Allow: /insights
+Allow: /portfolio
+Allow: /products
+Allow: /solutions
+
+# Disallow internal dashboards, authentication, and API endpoints
+Disallow: /admin/
+Disallow: /admin
+Disallow: /cs/
+Disallow: /cs
+Disallow: /login
+Disallow: /api/
+
+Sitemap: https://listech.id/sitemap.xml

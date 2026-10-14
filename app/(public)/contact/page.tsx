@@ -158,7 +158,7 @@ export default function ContactPage(): React.ReactNode {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form method="POST" action="/api/leads" onSubmit={handleSubmit} className="space-y-6">
               {errorMsg && (
                 <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 font-medium">
                   <AlertCircle className="w-4 h-4 shrink-0" />

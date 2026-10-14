@@ -2,22 +2,22 @@
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline';
+  script-src 'self';
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' data: https://fonts.gstatic.com;
-  img-src 'self' data: blob: https: http:;
+  img-src 'self' data: blob: https:;
   connect-src 'self' https://api.openai.com https://generativelanguage.googleapis.com;
   frame-src 'self' https://www.google.com https://maps.google.com;
   frame-ancestors 'none';
   object-src 'none';
   base-uri 'self';
   form-action 'self';
+  upgrade-insecure-requests;
 `.replace(/\s{2,}/g, ' ').trim();
 
 const nextConfig = {
+  poweredByHeader: false,
   experimental: {
-
-
     workerThreads: false,
     cpus: 1,
   },
