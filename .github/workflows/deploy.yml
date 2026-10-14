@@ -20,7 +20,13 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use 20
-            cd domains/listech.id/public_html
+            if [ -d "domains/lifesolution.co.id/public_html" ]; then
+              cd domains/lifesolution.co.id/public_html
+            elif [ -d "domains/listech.id/public_html" ]; then
+              cd domains/listech.id/public_html
+            else
+              cd public_html
+            fi
             git pull origin main
             npm install
             npx prisma generate

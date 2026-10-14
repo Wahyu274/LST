@@ -269,7 +269,7 @@ export default function AdminSettingsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Username Email SMTP"
-              placeholder="support@listech.id atau lifesolutiont@gmail.com"
+              placeholder="support@lifesolution.co.id atau lifesolutiont@gmail.com"
               value={formData.smtpUser || ''}
               onChange={(e) => setFormData({ ...formData, smtpUser: e.target.value })}
             />
@@ -282,7 +282,7 @@ export default function AdminSettingsPage() {
             />
           </div>
           <p className="text-[11px] text-slate-500 italic">
-            * Tips Hostinger: Gunakan Host <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">smtp.hostinger.com</code>, Port <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">465</code>, Username email Hostinger Anda (misal: <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">support@listech.id</code>) beserta password email tersebut.
+            * Tips Hostinger: Gunakan Host <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">smtp.hostinger.com</code>, Port <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">465</code>, Username email Hostinger Anda (misal: <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700">support@lifesolution.co.id</code>) beserta password email tersebut.
           </p>
         </div>
 
