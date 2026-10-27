@@ -41,7 +41,7 @@
     "lucide-react": "^0.460.0",
     "next": "^15.5.28",
     "nodemailer": "^10.2.1",
-    "openai": "^4.73.0",
+    "openai": "^7.45.1",
     "postcss": "^8.5.28",
     "prisma": "^5.22.0",
     "react": "^18.3.1",

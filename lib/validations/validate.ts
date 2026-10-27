@@ -42,7 +42,7 @@ export function validateInput<T>(schema: z.ZodSchema<T>, body: unknown): Validat
 
   const result = schema.safeParse(body);
   if (!result.success) {
-    const formattedErrors = result.error.errors.map((err) => ({
+    const formattedErrors = result.error.issues.map((err) => ({
       field: err.path.join('.'),
       message: err.message,
     }));
