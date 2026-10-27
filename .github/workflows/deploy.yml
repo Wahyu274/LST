@@ -36,6 +36,7 @@ jobs:
             
             npm install
             npx prisma generate
+            rm -rf .next
             npm run build
             
             # Restart Hostinger Node.js App (Passenger)
