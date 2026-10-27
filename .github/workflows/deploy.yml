@@ -27,14 +27,13 @@ jobs:
             else
               cd public_html
             fi
-            GH_TOKEN=$(echo "Z2hwX0RYaXdyTERUbWVmOVczV3YzMlplQVJtcmI5YURvZzNlYXdIVw==" | base64 -d)
-            REPO_URL="https://x-access-token:${GH_TOKEN}@github.com/Wahyu274/LST.git"
+            REPO_URL="https://github.com/Wahyu274/LST.git"
             
             if [ ! -d ".git" ]; then
-              echo "Cloning repository on Hostinger with PAT..."
+              echo "Cloning repository on Hostinger..."
               git clone "$REPO_URL" .
             else
-              echo "Pulling latest changes with PAT..."
+              echo "Pulling latest changes..."
               git remote set-url origin "$REPO_URL"
               git fetch origin main
               git reset --hard origin/main

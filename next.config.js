@@ -6,7 +6,7 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' data: https://fonts.gstatic.com;
   img-src 'self' data: blob: https:;
-  connect-src 'self' https://api.openai.com https://generativelanguage.googleapis.com;
+  connect-src 'self' https://api.openai.com https://generativelanguage.googleapis.com https://openrouter.ai;
   frame-src 'self' https://www.google.com https://maps.google.com;
   frame-ancestors 'none';
   object-src 'none';
