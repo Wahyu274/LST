@@ -63,16 +63,6 @@ Buka [http://localhost:3000](http://localhost:3000) pada browser Anda.
 
 ---
 
-## 🔐 Akun Akses Demo Bawaan
-
-| Peran | Email | Password |
-|---|---|---|
-| **Super Admin** | `admin@lst.co.id` | `AdminLST2026!` |
-| **CS Operator** | `cs1@lst.co.id` | `CSLST2026!` |
-| **Sales Executive** | `sales1@lst.co.id` | `SalesLST2026!` |
-
----
-
 ## 🏢 Legalitas & Klasifikasi Bisnis KBLI LST
 
 * 26220 — Industri Perlengkapan Komputer
