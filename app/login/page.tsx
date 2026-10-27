@@ -105,7 +105,7 @@ function LoginContent() {
   const [activeRole, setActiveRole] = useState<RoleKey>('SUPER_ADMIN');
 
   useEffect(() => {
-    const roleParam = searchParams.get('role')?.toUpperCase() as RoleKey;
+    const roleParam = searchParams?.get('role')?.toUpperCase() as RoleKey;
     if (roleParam && ROLE_THEMES[roleParam]) {
       setActiveRole(roleParam);
     }
