@@ -37,6 +37,8 @@ Thumbs.db
 *.rar
 *.7z
 
-# IDE
+# IDE & Build Cache
 .vscode/
+*.tsbuildinfo
+
 

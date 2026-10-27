@@ -45,9 +45,14 @@ jobs:
               sed -i '/Content-Security-Policy/d' .htaccess
             fi
             
+            # Hapus folder pages liar dan cache build lama agar bersih di server Hostinger
+            rm -rf pages
+            git clean -fd
+            rm -rf .next
+            rm -f tsconfig.tsbuildinfo
+            
             npm install
             npx prisma generate
-            rm -rf .next
             npm run build
             
             # Restart Hostinger Node.js App (Passenger)
