@@ -1,10 +1,15 @@
 import { AIProviderAdapter } from './types';
+import { OpenRouterAdapter } from './adapters/openrouter';
 import { GeminiAdapter } from './adapters/gemini';
 import { OpenAIAdapter } from './adapters/openai';
 import { ClaudeAdapter } from './adapters/claude';
 
 export function getAIProvider(): AIProviderAdapter {
-  const provider = process.env.AI_PRIMARY_PROVIDER || 'claude';
+  const provider = (process.env.AI_PRIMARY_PROVIDER || 'openrouter').toLowerCase();
+
+  if (provider === 'openrouter') {
+    return new OpenRouterAdapter();
+  }
 
   if (provider === 'openai') {
     return new OpenAIAdapter();
@@ -14,7 +19,11 @@ export function getAIProvider(): AIProviderAdapter {
     return new GeminiAdapter();
   }
 
-  return new ClaudeAdapter();
+  if (provider === 'claude') {
+    return new ClaudeAdapter();
+  }
+
+  return new OpenRouterAdapter();
 }
 
 export const LST_SYSTEM_PROMPT = `

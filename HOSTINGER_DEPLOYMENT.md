@@ -28,9 +28,9 @@ Pada hPanel ➔ **Node.js Web App** ➔ **Environment Variables**, tambahkan:
 NODE_ENV=production
 DATABASE_URL="postgresql://postgres.[namaproject]:[password]@[host].supabase.com:6543/postgres?pgbouncer=true"
 JWT_SECRET="ganti-dengan-kunci-jwt-rahasia-minimal-32-karakter"
-AI_PRIMARY_PROVIDER="gemini"
-GEMINI_API_KEY="AIzaSy..."
-OPENAI_API_KEY="sk-proj-..."
+AI_PRIMARY_PROVIDER="openrouter"
+OPENROUTER_API_KEY="sk-or-v1-..."
+OPENROUTER_MODEL="nvidia/nemotron-3-ultra-550b-a55b:free"
 NEXT_PUBLIC_APP_URL="https://lifesolution.co.id"
 ```
 

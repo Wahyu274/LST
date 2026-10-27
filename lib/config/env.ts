@@ -11,9 +11,12 @@ export const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   DATABASE_URL: process.env.DATABASE_URL || 'file:./dev.db',
   JWT_SECRET: process.env.JWT_SECRET || 'lst-secret-key-change-in-production-2026',
+  OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY || '',
+  OPENROUTER_MODEL: process.env.OPENROUTER_MODEL || 'nvidia/nemotron-3-ultra-550b-a55b:free',
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
-  AI_PROVIDER: process.env.AI_PROVIDER || 'openai',
+  ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY || '',
+  AI_PROVIDER: process.env.AI_PRIMARY_PROVIDER || process.env.AI_PROVIDER || 'openrouter',
   APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
 };
 

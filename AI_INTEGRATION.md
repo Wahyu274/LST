@@ -19,9 +19,9 @@ export interface AIProviderAdapter {
 }
 ```
 
-- **Primary Provider**: Google Gemini API (`gemini-1.5-flash`).
-- **Secondary / Fallback Provider**: OpenAI API (`gpt-4o-mini`).
-- **Off-line Fallback**: Intelligent Knowledge Search Engine berbasis aturan LST jika kuota/koneksi provider terputus.
+- **Primary Provider**: OpenRouter API (`lib/ai/adapters/openrouter.ts`) via OpenAI SDK, default model `google/gemini-2.0-flash-001` atau model pilihan lain (`openai/gpt-4o-mini`, `anthropic/claude-3.5-haiku`, `deepseek/deepseek-chat`).
+- **Secondary / Legacy Providers**: Google Gemini, Anthropic Claude, OpenAI direct adapters.
+- **Off-line Fallback**: Intelligent Knowledge Search Engine berbasis aturan LST jika kuota/koneksi provider terputus atau API key belum dipasang.
 
 ---
 

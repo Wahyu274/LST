@@ -10,8 +10,8 @@ export async function GET() {
       where: { pageKey: 'company_settings' },
     });
 
-    const envKey = process.env.ANTHROPIC_API_KEY || '';
-    const maskedKey = envKey.length > 8 ? `${envKey.slice(0, 6)}********************` : (envKey ? `${envKey.slice(0, 3)}***` : 'Belum Dikonfigurasi');
+    const envKey = process.env.OPENROUTER_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY || '';
+    const maskedKey = envKey.length > 8 ? `${envKey.slice(0, 7)}********************` : (envKey ? `${envKey.slice(0, 3)}***` : 'Belum Dikonfigurasi');
 
     const defaultContent = {
       companyName: 'CV Life Solution Technology',
@@ -29,7 +29,7 @@ export async function GET() {
       linkedin: 'https://linkedin.com/company/lst-technology',
       youtube: 'https://youtube.com/@lst.technology',
       tiktok: 'https://tiktok.com/@lst.technology',
-      aiProvider: 'Claude Opus 5.5',
+      aiProvider: 'OpenRouter (Nvidia Nemotron 3 Ultra)',
       aiApiKeyMasked: maskedKey,
     };
 
@@ -80,8 +80,8 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const envKey = process.env.ANTHROPIC_API_KEY || '';
-    const maskedKey = envKey.length > 8 ? `${envKey.slice(0, 6)}********************` : (envKey ? `${envKey.slice(0, 3)}***` : 'Belum Dikonfigurasi');
+    const envKey = process.env.OPENROUTER_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY || '';
+    const maskedKey = envKey.length > 8 ? `${envKey.slice(0, 7)}********************` : (envKey ? `${envKey.slice(0, 3)}***` : 'Belum Dikonfigurasi');
 
     const responseData = {
       ...JSON.parse(updated.contentJson),

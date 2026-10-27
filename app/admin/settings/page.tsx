@@ -23,8 +23,8 @@ export default function AdminSettingsPage() {
     linkedin: 'https://linkedin.com/company/lst-technology',
     youtube: 'https://youtube.com/@lst.technology',
     tiktok: 'https://tiktok.com/@lst.technology',
-    aiProvider: 'Claude Opus 5.5',
-    aiApiKeyMasked: 'AIzaSy********************',
+    aiProvider: 'OpenRouter (Nvidia Nemotron 3 Ultra)',
+    aiApiKeyMasked: 'Belum Dikonfigurasi',
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -214,10 +214,15 @@ export default function AdminSettingsPage() {
             <Select
               label="Model AI Utama"
               options={[
-                { label: 'Anthropic Claude Opus 5.5 (Rekomendasi)', value: 'Claude Opus 5.5' },
-                { label: 'Anthropic Claude Haiku 5.5 (Hemat Biaya)', value: 'Claude Haiku 5.5' },
+                { label: 'OpenRouter — Nvidia Nemotron 3 Ultra 550B (Gratis & Cepat)', value: 'OpenRouter (Nvidia Nemotron 3 Ultra)' },
+                { label: 'OpenRouter — Gemini 2.0 Flash (Cepat & Cerdas)', value: 'OpenRouter (Gemini 2.0 Flash)' },
+                { label: 'OpenRouter — GPT-4o Mini (OpenAI)', value: 'OpenRouter (GPT-4o Mini)' },
+                { label: 'OpenRouter — Claude 3.5 Haiku (Anthropic)', value: 'OpenRouter (Claude 3.5 Haiku)' },
+                { label: 'OpenRouter — DeepSeek Chat', value: 'OpenRouter (DeepSeek Chat)' },
+                { label: 'Anthropic Claude Opus 5.5 (Direct API)', value: 'Claude Opus 5.5' },
+                { label: 'Google Gemini 2.5 Flash (Direct API)', value: 'Gemini 2.5 Flash' },
               ]}
-              value={formData.aiProvider || 'Claude Opus 5.5'}
+              value={formData.aiProvider || 'OpenRouter (Nvidia Nemotron 3 Ultra)'}
               onChange={(e) => setFormData({ ...formData, aiProvider: e.target.value })}
             />
 

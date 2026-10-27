@@ -37,6 +37,12 @@ Format JSON yang diharapkan:
     let jsonText = response.content.trim();
     if (jsonText.startsWith('```json')) {
       jsonText = jsonText.replace(/^```json\n?/, '').replace(/\n?```$/, '');
+    } else if (jsonText.startsWith('```')) {
+      jsonText = jsonText.replace(/^```\n?/, '').replace(/\n?```$/, '');
+    }
+    const jsonMatch = jsonText.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      jsonText = jsonMatch[0];
     }
     
     const parsed = JSON.parse(jsonText);

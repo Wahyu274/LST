@@ -21,9 +21,9 @@ JWT_SECRET="super-secret-jwt-key-change-in-production-min-32-chars"
 SESSION_EXPIRES_IN="8h"
 
 # AI Provider Configuration
-AI_PRIMARY_PROVIDER="gemini" # Options: "gemini" | "openai"
-GEMINI_API_KEY="AIzaSy..."
-OPENAI_API_KEY="sk-proj-..."
+AI_PRIMARY_PROVIDER="openrouter" # Options: "openrouter" | "claude" | "gemini" | "openai"
+OPENROUTER_API_KEY="sk-or-v1-..."
+OPENROUTER_MODEL="google/gemini-2.0-flash-001" # Or "openai/gpt-4o-mini", "anthropic/claude-3.5-haiku", etc.
 
 # Company Default Info
 NEXT_PUBLIC_COMPANY_NAME="CV Life Solution Technology"
