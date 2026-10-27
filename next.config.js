@@ -1,4 +1,6 @@
-/** @type {import('next').NextConfig} */
+if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test') {
+  process.env.NODE_ENV = 'production';
+}
 
 const ContentSecurityPolicy = `
   default-src 'self';

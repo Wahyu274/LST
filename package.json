@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node -e \"try{require('fs').rmSync('.next',{recursive:true,force:true});require('fs').rmSync('pages',{recursive:true,force:true});require('fs').rmSync('tsconfig.tsbuildinfo',{force:true})}catch(e){}\" && prisma generate && next build",
+    "build": "node scripts/build.js",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
