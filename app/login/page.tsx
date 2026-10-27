@@ -24,7 +24,7 @@ interface RoleTheme {
   key: RoleKey;
   label: string;
   sublabel: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   accentColor: string;
   bgGradient: string;
   cardBorder: string;
@@ -116,7 +116,7 @@ function LoginContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const currentTheme = ROLE_THEMES[activeRole];
+  const currentTheme = ROLE_THEMES[activeRole as RoleKey];
   const IconComponent = currentTheme.icon;
 
   const handleRoleSwitch = (roleKey: RoleKey) => {
@@ -255,7 +255,7 @@ function LoginContent() {
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
                 Cakupan Akses & Fitur Utama:
               </span>
-              {currentTheme.features.map((feat, idx) => (
+              {currentTheme.features.map((feat: string, idx: number) => (
                 <div key={idx} className="flex items-center gap-2.5 text-xs text-slate-200">
                   <CheckCircle2 className={`w-4 h-4 shrink-0 ${currentTheme.badgeText}`} />
                   <span>{feat}</span>
@@ -292,7 +292,7 @@ function LoginContent() {
                     type="email"
                     required
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     placeholder={`user@lst.co.id (${activeRole.toLowerCase()})`}
                     className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/15 text-xs text-white placeholder:text-slate-500 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
                   />
@@ -307,7 +307,7 @@ function LoginContent() {
                     type="password"
                     required
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                     placeholder="••••••••••••"
                     className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/15 text-xs text-white placeholder:text-slate-500 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
                   />

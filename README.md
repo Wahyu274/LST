@@ -24,13 +24,14 @@ Platform bisnis digital terintegrasi untuk **CV Life Solution Technology** yang 
 
 ## 📚 Suite Dokumentasi Teknis Lengkap
 
-Platform ini dilengkapi dengan 11 dokumen teknis produksi yang dapat dipelajari pada berkas berikut:
+Platform ini dilengkapi dengan buku dokumentasi master dan modul teknis terperinci yang dapat dipelajari pada berkas berikut:
 
+0. 📖 **[DOCUMENTATION.md](DOCUMENTATION.md)**: **Buku Master Dokumentasi Lengkap Sistem** (Arsitektur, ERD 21 tabel, API specs, RBAC, RAG AI, CRM leads, CS Workspace, SMTP, SOP harian & troubleshooting).
 1. 🏛️ **[ARCHITECTURE.md](ARCHITECTURE.md)**: Arsitektur Modular Monolith, Next.js App Router, & Realtime Polling Engine.
-2. 🗄️ **[DATABASE.md](DATABASE.md)**: Skema ERD relasional Prisma ORM (MySQL / SQLite) & panduan indexing.
+2. 🗄️ **[DATABASE.md](DATABASE.md)**: Skema ERD relasional Prisma ORM (MySQL / SQLite / PostgreSQL) & panduan indexing.
 3. 🔒 **[SECURITY.md](SECURITY.md)**: Keamanan HttpOnly JWT, OWASP, audit logging, & AI guardrails.
-4. 🤖 **[AI_INTEGRATION.md](AI_INTEGRATION.md)**: Adapter Gemini/OpenAI, RAG context loader, & AI-to-CS handoff.
-5. 🛡️ **[RBAC.md](RBAC.md)**: Matriks peran & verifikasi izin server-side (`SUPER_ADMIN`, `ADMIN`, `SALES`, `CUSTOMER_SERVICE`, `CONTENT_EDITOR`).
+4. 🤖 **[AI_INTEGRATION.md](AI_INTEGRATION.md)**: Multi-LLM Adapter, RAG context loader, & AI-to-CS handoff.
+5. 🛡️ **[RBAC.md](RBAC.md)**: Matriks peran & verifikasi izin server-side (`SUPER_ADMIN`, `SALES`, `CUSTOMER_SERVICE`, `CONTENT_EDITOR`).
 6. 🔌 **[API.md](API.md)**: Kontrak API Route Handlers & Zod validation schema.
 7. ⚙️ **[ENVIRONMENT.md](ENVIRONMENT.md)**: Panduan variabel lingkungan `.env`.
 8. 📊 **[ADMIN_GUIDE.md](ADMIN_GUIDE.md)**: Panduan pengoperasian Executive Admin Dashboard & Mini CRM.

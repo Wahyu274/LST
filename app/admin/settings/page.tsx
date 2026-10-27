@@ -23,7 +23,7 @@ export default function AdminSettingsPage() {
     linkedin: 'https://linkedin.com/company/lst-technology',
     youtube: 'https://youtube.com/@lst.technology',
     tiktok: 'https://tiktok.com/@lst.technology',
-    aiProvider: 'Gemini 1.5 Flash',
+    aiProvider: 'Claude Opus 5.5',
     aiApiKeyMasked: 'AIzaSy********************',
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -214,11 +214,10 @@ export default function AdminSettingsPage() {
             <Select
               label="Model AI Utama"
               options={[
-                { label: 'Google Gemini 1.5 Flash (Rekomendasi Cepat)', value: 'Gemini 1.5 Flash' },
-                { label: 'Google Gemini 1.5 Pro (Reasoning Tinggi)', value: 'Gemini 1.5 Pro' },
-                { label: 'OpenAI GPT-4o Mini', value: 'GPT-4o Mini' },
+                { label: 'Anthropic Claude Opus 5.5 (Rekomendasi)', value: 'Claude Opus 5.5' },
+                { label: 'Anthropic Claude Haiku 5.5 (Hemat Biaya)', value: 'Claude Haiku 5.5' },
               ]}
-              value={formData.aiProvider || 'Gemini 1.5 Flash'}
+              value={formData.aiProvider || 'Claude Opus 5.5'}
               onChange={(e) => setFormData({ ...formData, aiProvider: e.target.value })}
             />
 

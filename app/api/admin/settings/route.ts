@@ -10,7 +10,7 @@ export async function GET() {
       where: { pageKey: 'company_settings' },
     });
 
-    const envKey = process.env.GEMINI_API_KEY || '';
+    const envKey = process.env.ANTHROPIC_API_KEY || '';
     const maskedKey = envKey.length > 8 ? `${envKey.slice(0, 6)}********************` : (envKey ? `${envKey.slice(0, 3)}***` : 'Belum Dikonfigurasi');
 
     const defaultContent = {
@@ -29,7 +29,7 @@ export async function GET() {
       linkedin: 'https://linkedin.com/company/lst-technology',
       youtube: 'https://youtube.com/@lst.technology',
       tiktok: 'https://tiktok.com/@lst.technology',
-      aiProvider: 'Google Gemini (API Key Active)',
+      aiProvider: 'Claude Opus 5.5',
       aiApiKeyMasked: maskedKey,
     };
 
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const envKey = process.env.GEMINI_API_KEY || '';
+    const envKey = process.env.ANTHROPIC_API_KEY || '';
     const maskedKey = envKey.length > 8 ? `${envKey.slice(0, 6)}********************` : (envKey ? `${envKey.slice(0, 3)}***` : 'Belum Dikonfigurasi');
 
     const responseData = {

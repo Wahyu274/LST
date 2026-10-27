@@ -21,6 +21,27 @@ const QUICK_INTENTS = [
   'Hubungi CS Manusia',
 ];
 
+// Matches internal product/solution pages and external https links in AI replies
+const LINK_PATTERN = /(https:\/\/[^\s)]+|\/(?:products|solutions)\/[a-z0-9-]+)/gi;
+
+function renderWithLinks(text: string) {
+  return text.split(LINK_PATTERN).map((part, i) => {
+    if (i % 2 === 0) return part;
+    const isExternal = part.startsWith('https://');
+    return (
+      <a
+        key={i}
+        href={part}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        className="underline font-semibold break-all"
+      >
+        {part}
+      </a>
+    );
+  });
+}
+
 export default function AIConsultantWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -309,7 +330,7 @@ export default function AIConsultantWidget() {
                       : 'bg-white text-slate-800 border border-slate-200 rounded-bl-xs'
                   }`}
                 >
-                  <p className="whitespace-pre-line">{msg.text}</p>
+                  <p className="whitespace-pre-line">{renderWithLinks(msg.text)}</p>
                   <span
                     className={`block text-[10px] mt-1 text-right ${
                       msg.sender === 'user' ? 'text-blue-200' : 'text-slate-400'

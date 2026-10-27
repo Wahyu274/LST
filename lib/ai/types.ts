@@ -8,7 +8,7 @@ export interface AIResponse {
   confidenceScore?: number;
   shouldEscalateToCS?: boolean;
   handoffSummary?: string;
-  provider: 'gemini' | 'openai' | 'fallback';
+  provider: 'claude' | 'gemini' | 'openai' | 'fallback';
 }
 
 export interface AIProviderAdapter {

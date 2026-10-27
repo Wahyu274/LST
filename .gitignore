@@ -37,3 +37,6 @@ Thumbs.db
 *.rar
 *.7z
 
+# IDE
+.vscode/
+

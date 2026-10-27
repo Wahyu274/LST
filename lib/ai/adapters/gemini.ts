@@ -17,7 +17,10 @@ export class GeminiAdapter implements AIProviderAdapter {
 
     // If Gemini key is set and valid, call Google Gemini API
     if (apiKey && apiKey !== 'mock-gemini-key' && apiKey.length > 10) {
-      const modelsToTry = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro', 'gemini-pro'];
+      // GEMINI_MODEL can override the primary model when Google releases/retires models
+      const modelsToTry = [process.env.GEMINI_MODEL, 'gemini-2.5-flash', 'gemini-2.5-flash-lite'].filter(
+        (m, i, arr): m is string => !!m && arr.indexOf(m) === i
+      );
 
       for (const modelName of modelsToTry) {
         try {
@@ -50,7 +53,8 @@ export class GeminiAdapter implements AIProviderAdapter {
     return this.fallbackEngine(userLastMessage, isRequestingHuman, knowledgeContext);
   }
 
-  private fallbackEngine(userQuery: string, isHumanReq: boolean, knowledge: string): AIResponse {
+  // Public so other adapters (e.g. ClaudeAdapter) can reuse the offline keyword engine
+  fallbackEngine(userQuery: string, isHumanReq: boolean, knowledge: string): AIResponse {
     // Strip any raw prompt boundary tags if present
     const cleanUserQuery = userQuery
       .replace(/<untrusted_user_input>/gi, '')
