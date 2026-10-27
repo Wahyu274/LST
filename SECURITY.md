@@ -41,7 +41,13 @@ Implementasi keamanan mengacu pada baseline standar:
 
 ---
 
-### 4. Pelaporan Kerentanan Keamanan (Security Vulnerability Reporting)
+### 4. Mitigasi Resource Exhaustion & Upstream Security Patches
+- **Array Depth & Length Guard (GHSA-mrhx-c7xc-m3w5)**: Setiap skema array Zod dibatasi secara eksplisit menggunakan `.max()`. Lapisan pra-validasi [validate.ts](file:///c:/Users/Microsoft/OneDrive/LST-repo/lib/validations/validate.ts) memfilter payload sebelum parsing untuk mencegah serangan *Uncontrolled Resource Consumption* / *Out-of-Memory (OOM)* pada Zod. Versi Zod dipatch ke `^4.6.7`.
+- **Image Optimization RCE Mitigation (GHSA-2464-fhr4-w9xw)**: Enforce versi aman `sharp >= 0.35.5`, Next.js diperbarui ke versi patch resmi `15.5.28`, dan [next.config.js](file:///c:/Users/Microsoft/OneDrive/LST-repo/next.config.js) menerapkan `images.unoptimized: true` sebagai pertahanan berlapis.
+
+---
+
+### 5. Pelaporan Kerentanan Keamanan (Security Vulnerability Reporting)
 Jika Anda menemukan potensi masalah atau celah keamanan pada platform ini, silakan hubungi Tim Keamanan IT LST:
 - **Email**: `security@lst.co.id`
 - **Tenggat Respon**: Maksimal 24 jam kerja.

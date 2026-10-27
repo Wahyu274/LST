@@ -82,7 +82,9 @@ export const quotationSchema = z.object({
       unitPrice: z.number().min(0),
       totalPrice: z.number().min(0),
     })
-  ).min(1, 'Penawaran harus berisi minimal 1 item'),
+  )
+    .min(1, 'Penawaran harus berisi minimal 1 item')
+    .max(100, 'Penawaran maksimal 100 item'),
 });
 
 export const projectSchema = z.object({
