@@ -4,6 +4,8 @@
 .env.production
 .env.staging
 .env.development
+hostinger.env
+sandi.md
 
 # Node dependencies
 /node_modules
