@@ -9,7 +9,7 @@ export const metadata = {
 export default function AboutPage(): React.ReactNode {
   const KBLI_LIST = [
     { code: '26220', name: 'Industri Perlengkapan Komputer' },
-    { code: '26791', name: 'Industri Peralatan Laboratorium & Pengukuran' },
+    { code: '26791', name: 'Industri Kamera Cinematografi, Proyektor, dan Perlengkapannya' },
     { code: '46511', name: 'Perdagangan Besar Komputer & Perlengkapan Komputer' },
     { code: '46512', name: 'Perdagangan Besar Piranti Lunak (Software)' },
     { code: '46591', name: 'Perdagangan Besar Mesin Kantor & Industri' },
