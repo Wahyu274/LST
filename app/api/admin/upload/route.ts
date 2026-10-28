@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
 import crypto from 'crypto';
+import { saveUploadedFile } from '@/lib/storage';
 import { checkRateLimit } from '@/lib/security/rateLimiter';
 import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/db/prisma';
@@ -69,18 +68,12 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 5. Ensure uploads directory exists
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-    await mkdir(uploadsDir, { recursive: true });
-
-    // 6. Generate Server-Side Randomized Filename
+    // 5. Generate Server-Side Randomized Filename
     const randomHash = crypto.randomBytes(8).toString('hex');
     const filename = `upl_${Date.now()}_${randomHash}${safeExt}`;
-    const filePath = path.join(uploadsDir, filename);
 
-    await writeFile(filePath, buffer);
-
-    const fileUrl = `/uploads/${filename}`;
+    // 6. Persist to Supabase Storage (fallback: local public/uploads)
+    const fileUrl = await saveUploadedFile(buffer, filename, mimeType);
 
     // 7. Record Audit Log
     await prisma.auditLog.create({

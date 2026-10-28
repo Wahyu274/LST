@@ -18,6 +18,9 @@ export const env = {
   ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY || '',
   AI_PROVIDER: process.env.AI_PRIMARY_PROVIDER || process.env.AI_PROVIDER || 'openrouter',
   APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  SUPABASE_URL: process.env.SUPABASE_URL || '',
+  SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+  SUPABASE_STORAGE_BUCKET: process.env.SUPABASE_STORAGE_BUCKET || 'media',
 };
 
 /**
