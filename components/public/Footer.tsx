@@ -16,11 +16,11 @@ function formatUrl(url?: string, fallbackUrl: string = '#') {
 export default function PublicFooter() {
   const [settings, setSettings] = useState({
     companyName: 'CV Life Solution Technology',
-    address: 'Kasian, Mudal, Temanggung, Jawa Tengah',
-    phone: '0821-3555-0007',
+    address: 'Kasihan, Mudal, Kec. Temanggung, Kabupaten Temanggung, Jawa Tengah 54119',
+    phone: '0814-6382-1758',
     email: 'info@lst.co.id',
     supportEmail: 'support@lst.co.id',
-    whatsappCS: '6282135550007',
+    whatsappCS: '6281463821758',
     kbli: '26220, 46511, 62090',
     instagram: 'https://instagram.com/lst.technology',
     facebook: 'https://facebook.com/lst.technology',

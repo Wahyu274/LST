@@ -3,6 +3,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { prisma } from '@/lib/db/prisma';
+import { getPublicCompanySettings } from '@/lib/settings';
 import { formatCurrency } from '@/lib/utils';
 import { ArrowLeft, PhoneCall, FileText, Cpu, CheckCircle2 } from 'lucide-react';
 
@@ -62,6 +63,7 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }): Promise<React.ReactNode> {
   const { slug } = await params;
+  const { whatsappCS } = await getPublicCompanySettings();
   const product = await prisma.product.findUnique({
     where: { slug },
     include: { category: true },
@@ -170,7 +172,7 @@ export default async function ProductDetailPage({
               <span>Minta Penawaran (Quotation)</span>
             </Link>
             <a
-              href={`https://wa.me/6282135550007?text=Halo%20Life%20Solution%20Technology,%20saya%20tertarik%20dengan%20produk%20${encodeURIComponent(product.name)}`}
+              href={`https://wa.me/${whatsappCS}?text=Halo%20Life%20Solution%20Technology,%20saya%20tertarik%20dengan%20produk%20${encodeURIComponent(product.name)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 py-3.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold text-xs shadow transition-colors flex items-center justify-center gap-2"

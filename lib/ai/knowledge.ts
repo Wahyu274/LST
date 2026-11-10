@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/db/prisma';
+import { getPublicCompanySettings, formatPhoneDisplay } from '@/lib/settings';
 
 const MAX_PRODUCTS_IN_CONTEXT = 25;
 
@@ -24,7 +25,7 @@ export async function getApprovedKnowledgeContext(userQuery: string): Promise<st
       .split(/[^a-z0-9]+/)
       .filter((w) => w.length > 2);
 
-    const [faqs, kbSources, products, services] = await Promise.all([
+    const [faqs, kbSources, products, services, company] = await Promise.all([
       // 1. Fetch published FAQs marked syncToAI
       prisma.fAQ.findMany({
         where: {
@@ -81,6 +82,8 @@ export async function getApprovedKnowledgeContext(userQuery: string): Promise<st
         },
         orderBy: { sortOrder: 'asc' },
       }),
+      // 5. Contact numbers managed in Admin > Pengaturan Sistem
+      getPublicCompanySettings(),
     ]);
 
     // Rank products: most relevant to the question first, then featured items
@@ -96,8 +99,10 @@ export async function getApprovedKnowledgeContext(userQuery: string): Promise<st
     let knowledgeText = `=== RESMI DATA KNOWLEDGE BASE CV LIFE SOLUTION TECHNOLOGY (LST) ===\n`;
     knowledgeText += `Company Name: CV Life Solution Technology (LST)\n`;
     knowledgeText += `Positioning: Technology Solution & Digital Transformation Partner\n`;
-    knowledgeText += `Alamat: Kasian, Mudal, Temanggung, Jawa Tengah\n`;
-    knowledgeText += `Nomor WhatsApp Resmi: 0821-3555-0007\n`;
+    knowledgeText += `Alamat: Kasihan, Mudal, Kec. Temanggung, Kabupaten Temanggung, Jawa Tengah 54119 (Google Maps Plus Code: M58J+JX Mudal, Temanggung)\n`;
+    knowledgeText += `Nomor WhatsApp Resmi CS: ${company.phone}\n`;
+    knowledgeText += `WhatsApp Teknisi Software & ERP: ${formatPhoneDisplay(company.whatsappTechSoftware)}\n`;
+    knowledgeText += `WhatsApp Teknisi Hardware & Fiber Optic: ${formatPhoneDisplay(company.whatsappTechHardware)}\n`;
     knowledgeText += `KBLI Legalitas: 26220, 26791, 46511, 46512, 46591, 62090, 74201, 95110, 95120\n\n`;
 
     if (services.length > 0) {

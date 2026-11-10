@@ -35,8 +35,8 @@ export default function ChatTimeline({
   const endRef = useRef<HTMLDivElement>(null);
 
   const [techContacts, setTechContacts] = useState({
-    whatsappTechSoftware: '6282135550008',
-    whatsappTechHardware: '6282135550009',
+    whatsappTechSoftware: '6285729637816',
+    whatsappTechHardware: '6282138388856',
   });
 
   useEffect(() => {
@@ -45,8 +45,8 @@ export default function ChatTimeline({
       .then((res) => {
         if (res.data) {
           setTechContacts({
-            whatsappTechSoftware: res.data.whatsappTechSoftware || '6282135550008',
-            whatsappTechHardware: res.data.whatsappTechHardware || '6282135550009',
+            whatsappTechSoftware: res.data.whatsappTechSoftware || '6285729637816',
+            whatsappTechHardware: res.data.whatsappTechHardware || '6282138388856',
           });
         }
       })

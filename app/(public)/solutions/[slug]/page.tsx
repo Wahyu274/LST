@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { prisma } from '@/lib/db/prisma';
+import { getPublicCompanySettings } from '@/lib/settings';
 import { ArrowLeft, CheckCircle2, HelpCircle, Layers } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -115,6 +116,7 @@ export default async function SolutionDetailPage({
   params: Promise<{ slug: string }>;
 }): Promise<React.ReactNode> {
   const { slug } = await params;
+  const { whatsappCS } = await getPublicCompanySettings();
   let solution: any = null;
   try {
     solution = await prisma.serviceSolution.findUnique({
@@ -280,7 +282,7 @@ export default async function SolutionDetailPage({
               Minta Penawaran
             </Link>
             <a
-              href="https://wa.me/6282135550007"
+              href={`https://wa.me/${whatsappCS}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md"

@@ -31,7 +31,7 @@
   $$\text{Consult} \longrightarrow \text{Design} \longrightarrow \text{Supply} \longrightarrow \text{Implement} \longrightarrow \text{Support}$$
 - **Kontak & Komunikasi**:
   - Email Resmi: `lifesolutiont@gmail.com`
-  - WhatsApp Bisnis: `0821-3555-0007`
+  - WhatsApp Bisnis: `0814-6382-1758`
   - Website: `https://lifesolution.co.id`
 
 ### 1.2 Legalitas & Klasifikasi Baku Lapangan Usaha Indonesia (KBLI)

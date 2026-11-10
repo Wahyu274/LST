@@ -10,13 +10,13 @@ export default function AdminSettingsPage() {
   const [formData, setFormData] = useState<any>({
     companyName: 'CV Life Solution Technology',
     positioning: 'Technology Solution & Digital Transformation Partner',
-    phone: '0821-3555-0007',
+    phone: '0814-6382-1758',
     email: 'info@lst.co.id',
     supportEmail: 'support@lst.co.id',
-    whatsappCS: '6282135550007',
-    whatsappTechSoftware: '6282135550008',
-    whatsappTechHardware: '6282135550009',
-    address: 'Kasian, Mudal, Temanggung, Jawa Tengah',
+    whatsappCS: '6281463821758',
+    whatsappTechSoftware: '6285729637816',
+    whatsappTechHardware: '6282138388856',
+    address: 'Kasihan, Mudal, Kec. Temanggung, Kabupaten Temanggung, Jawa Tengah 54119',
     kbli: '26220, 46511, 62090',
     instagram: 'https://instagram.com/lst.technology',
     facebook: 'https://facebook.com/lst.technology',
@@ -135,26 +135,29 @@ export default function AdminSettingsPage() {
             <span className="text-xl">📱</span>
             <div>
               <h3 className="font-display font-bold text-base text-[#071426]">Nomor WhatsApp Tim & Teknisi</h3>
-              <p className="text-xs text-slate-500">Nomor ini terindeks langsung pada widget chat publik & tombol forward CS.</p>
+              <p className="text-xs text-slate-500">
+                Dipakai di seluruh website (Footer, Kontak, FAQ, Produk, Solusi, AI Chat & tombol forward CS). Boleh ditulis 08xx atau 628xx.
+                Nomor telepon yang tampil di website otomatis mengikuti WhatsApp Customer Service.
+              </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Input
               label="WhatsApp Customer Service"
-              placeholder="6282135550007"
+              placeholder="6281463821758"
               value={formData.whatsappCS || ''}
               onChange={(e) => setFormData({ ...formData, whatsappCS: e.target.value })}
             />
             <Input
               label="WhatsApp Teknisi Software & ERP"
-              placeholder="6282135550008"
+              placeholder="6285729637816"
               value={formData.whatsappTechSoftware || ''}
               onChange={(e) => setFormData({ ...formData, whatsappTechSoftware: e.target.value })}
             />
             <Input
               label="WhatsApp Teknisi Hardware & FO"
-              placeholder="6282135550009"
+              placeholder="6282138388856"
               value={formData.whatsappTechHardware || ''}
               onChange={(e) => setFormData({ ...formData, whatsappTechHardware: e.target.value })}
             />

@@ -30,7 +30,7 @@ export interface AIProviderAdapter {
 Setiap kali pengguna mengirimkan pertanyaan di widget AI Consultant, `lib/ai/knowledge.ts` mengambil:
 1. FAQ publik yang telah disetujui admin dan ditandai `syncToAI = true`.
 2. Dokumen resmi LST (`AIKnowledgeSource`).
-3. Informasi profil perusahaan, alamat Temanggung, dan nomor WhatsApp resmi (0821-3555-0007).
+3. Informasi profil perusahaan, alamat Temanggung, dan nomor WhatsApp resmi (0814-6382-1758).
 
 ---
 

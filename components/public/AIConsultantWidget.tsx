@@ -63,9 +63,9 @@ export default function AIConsultantWidget() {
 
   // Settings for WhatsApp numbers
   const [contacts, setContacts] = useState({
-    whatsappCS: '6282135550007',
-    whatsappTechSoftware: '6282135550008',
-    whatsappTechHardware: '6282135550009',
+    whatsappCS: '6281463821758',
+    whatsappTechSoftware: '6285729637816',
+    whatsappTechHardware: '6282138388856',
   });
 
   useEffect(() => {
@@ -74,9 +74,9 @@ export default function AIConsultantWidget() {
       .then((res) => {
         if (res.data) {
           setContacts({
-            whatsappCS: res.data.whatsappCS || '6282135550007',
-            whatsappTechSoftware: res.data.whatsappTechSoftware || '6282135550008',
-            whatsappTechHardware: res.data.whatsappTechHardware || '6282135550009',
+            whatsappCS: res.data.whatsappCS || '6281463821758',
+            whatsappTechSoftware: res.data.whatsappTechSoftware || '6285729637816',
+            whatsappTechHardware: res.data.whatsappTechHardware || '6282138388856',
           });
         }
       })

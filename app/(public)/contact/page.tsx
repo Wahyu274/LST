@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, AlertCircle, Compass } from 'lucide-react';
 
+// Office pin from Plus Code M58J+JX (6P4GM58J+JX), Mudal, Temanggung
+const OFFICE_COORDS = '-7.333438,110.182438';
+
 export default function ContactPage(): React.ReactNode {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,11 +22,11 @@ export default function ContactPage(): React.ReactNode {
 
   const [settings, setSettings] = useState({
     companyName: 'CV LIFE SOLUTION TECHNOLOGY',
-    address: 'Kasian, Mudal, Temanggung, Jawa Tengah',
-    phone: '0821-3555-0007',
+    address: 'Kasihan, Mudal, Kec. Temanggung, Kabupaten Temanggung, Jawa Tengah 54119',
+    phone: '0814-6382-1758',
     email: 'info@lst.co.id',
     supportEmail: 'support@lst.co.id',
-    whatsappCS: '6282135550007',
+    whatsappCS: '6281463821758',
   });
 
   useEffect(() => {
@@ -277,7 +280,7 @@ export default function ContactPage(): React.ReactNode {
             <p className="text-xs text-slate-500">{settings.address}</p>
           </div>
           <a
-            href="https://maps.google.com/?q=Temanggung+Jawa+Tengah"
+            href={`https://www.google.com/maps/search/?api=1&query=${OFFICE_COORDS}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-[#1769E0] font-semibold text-xs hover:bg-slate-50 shadow-xs transition-colors shrink-0"
@@ -291,7 +294,7 @@ export default function ContactPage(): React.ReactNode {
         <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white h-96 relative">
           <iframe
             title="Lokasi Kantor LST Temanggung"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63339.46781216016!2d110.134543!3d-7.316823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a82756d11f2a3%3A0x4027a76e352e850!2sTemanggung%2C%20Temanggung%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+            src={`https://www.google.com/maps?q=${OFFICE_COORDS}&z=17&hl=id&output=embed`}
             width="100%"
             height="100%"
             style={{ border: 0 }}

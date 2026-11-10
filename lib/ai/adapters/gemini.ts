@@ -107,7 +107,7 @@ export class GeminiAdapter implements AIProviderAdapter {
     if (queryLower.includes('lokasi') || queryLower.includes('alamat') || queryLower.includes('kontak') || queryLower.includes('telepon') || queryLower.includes('wa')) {
       return {
         content:
-          'Kantor CV Life Solution Technology (LST) berlokasi di Kasian, Mudal, Temanggung, Jawa Tengah. Kontak WhatsApp Resmi: 0821-3555-0007. Kami melayani wilayah Jawa Tengah, DI Yogyakarta, dan pengadaan nasional.',
+          'Kantor CV Life Solution Technology (LST) berlokasi di Kasihan, Mudal, Kec. Temanggung, Kabupaten Temanggung, Jawa Tengah 54119 (Google Maps: M58J+JX Mudal, Temanggung). Kontak WhatsApp Resmi: 0814-6382-1758. Kami melayani wilayah Jawa Tengah, DI Yogyakarta, dan pengadaan nasional.',
         shouldEscalateToCS: false,
         provider: 'fallback',
       };

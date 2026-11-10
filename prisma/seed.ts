@@ -297,7 +297,7 @@ async function main() {
       {
         categoryId: faqProc.id,
         question: 'Bagaimana alur permintaan Surat Penawaran Harga (Quotation) resmi?',
-        answer: 'Anda dapat menekan tombol "Minta Penawaran" pada detail produk/solusi, berkonsultasi via AI Assistant, atau langsung menghubungi tim sales kami melalui WhatsApp (0821-3555-0007). Tim kami akan menerbitkan dokumen PDF penawaran resmi lengkap dengan spesifikasi & legalitas.',
+        answer: 'Anda dapat menekan tombol "Minta Penawaran" pada detail produk/solusi, berkonsultasi via AI Assistant, atau langsung menghubungi tim sales kami melalui WhatsApp (0814-6382-1758). Tim kami akan menerbitkan dokumen PDF penawaran resmi lengkap dengan spesifikasi & legalitas.',
         isPublished: true,
         syncToAI: true,
         sortOrder: 2,

@@ -27,7 +27,7 @@ OPENROUTER_MODEL="google/gemini-2.0-flash-001" # Or "openai/gpt-4o-mini", "anthr
 
 # Company Default Info
 NEXT_PUBLIC_COMPANY_NAME="CV Life Solution Technology"
-NEXT_PUBLIC_WHATSAPP_NUMBER="6282135550007"
+NEXT_PUBLIC_WHATSAPP_NUMBER="6281463821758"
 ```
 
 ---

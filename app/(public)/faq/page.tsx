@@ -1,5 +1,6 @@
 import React from 'react';
 import { prisma } from '@/lib/db/prisma';
+import { getPublicCompanySettings } from '@/lib/settings';
 import Link from 'next/link';
 import { HelpCircle, Sparkles } from 'lucide-react';
 
@@ -26,7 +27,7 @@ const FALLBACK_CATEGORIES = [
       {
         id: 'faq-2',
         question: 'Bagaimana alur permintaan Surat Penawaran Harga (Quotation) resmi?',
-        answer: 'Anda dapat menekan tombol "Minta Penawaran" pada detail produk/solusi, berkonsultasi via AI Assistant, atau langsung menghubungi tim sales kami melalui WhatsApp (0821-3555-0007). Tim kami akan menerbitkan dokumen PDF penawaran resmi lengkap dengan spesifikasi & legalitas.',
+        answer: 'Anda dapat menekan tombol "Minta Penawaran" pada detail produk/solusi, berkonsultasi via AI Assistant, atau langsung menghubungi tim sales kami melalui WhatsApp (0814-6382-1758). Tim kami akan menerbitkan dokumen PDF penawaran resmi lengkap dengan spesifikasi & legalitas.',
         syncToAI: true,
       },
     ],
@@ -46,6 +47,7 @@ const FALLBACK_CATEGORIES = [
 ];
 
 export default async function FAQPage(): Promise<React.ReactNode> {
+  const { whatsappCS } = await getPublicCompanySettings();
   let categories: any[] = [];
   try {
     categories = await prisma.fAQCategory.findMany({
@@ -126,7 +128,7 @@ export default async function FAQPage(): Promise<React.ReactNode> {
             Kirim Pesan Inquiry
           </Link>
           <a
-            href="https://wa.me/6282135550007"
+            href={`https://wa.me/${whatsappCS}`}
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow"
