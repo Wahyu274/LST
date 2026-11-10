@@ -80,7 +80,11 @@ export async function sendLeadEmailNotification(params: SendLeadNotificationPara
       },
     });
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://lifesolution.co.id';
+    // Email links are opened from an inbox, so a localhost URL (e.g. from .env.local) is never reachable
+    const configuredUrl = (process.env.NEXT_PUBLIC_APP_URL || '').replace(/\/+$/, '');
+    const appUrl = configuredUrl && !/localhost|127\.0\.0\.1/i.test(configuredUrl)
+      ? configuredUrl
+      : 'https://lifesolution.co.id';
 
     const htmlBody = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; rounded: 12px; padding: 24px; background-color: #ffffff;">
